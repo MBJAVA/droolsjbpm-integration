@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 
 package org.kie.server.client;
 
@@ -234,9 +234,9 @@ public class LoadBalancerClientTest {
                 checkFailedEndpointsJob.add(future);
                 return future;
             }
-            
+
         });
-        
+
         KieServicesClient client = KieServicesFactory.newKieServicesClient(config);
         ServiceResponse<KieServerInfo> response = client.getServerInfo();
         assertSuccess(response);
@@ -262,11 +262,11 @@ public class LoadBalancerClientTest {
         } catch (KieServerHttpRequestException e) {
             assertEquals("No available endpoints found", e.getMessage());
         }
-        
+
         assertEquals(2, checkFailedEndpointsJob.size());
         Future<?> waitingForJobsToComplete = checkFailedEndpointsJob.get(1);
         waitingForJobsToComplete.get(5, TimeUnit.SECONDS);
-        
+
         response = client.getServerInfo();
         assertSuccess(response);
         assertEquals("Server version", "1", response.getResult().getVersion());
